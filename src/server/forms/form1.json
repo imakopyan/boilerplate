@@ -1,4 +1,40 @@
 {
+  "schema": {
     "title": "Форма 1",
-    "description": "Это форма 1"
+    "description": "Это форма 1",
+    "type": "object",
+    "required": ["firstName", "lastName", "email"],
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "title": "First Name"
+      },
+      "lastName": {
+        "type": "string",
+        "title": "Last Name"
+      },
+      "email": {
+        "type": "string",
+        "title": "Email",
+        "format": "emailAddressFormat"
+      },
+      "phoneNumber": {
+        "type": "string",
+        "title": "Phone Number",
+        "format": "phoneNumberFormat"
+      },
+      "comment": {
+        "type": "string",
+        "title": "Comment"
+      }
+    }
+  },
+  "uiSchema": {
+    "firstName": {
+      "ui:autofocus": true
+    },
+    "comment": {
+      "ui:widget": "textarea"
+    }
+  }
 }
