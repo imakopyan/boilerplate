@@ -37,7 +37,7 @@ describe("App Form", () => {
       </Provider>
     );
     expect(await screen.findByText(/Форма 1/i)).toBeInTheDocument();
-    screen.debug();
+    // screen.debug();
   });
 
   it("renders component form", async () => {
