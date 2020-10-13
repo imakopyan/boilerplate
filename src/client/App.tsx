@@ -5,7 +5,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Box from "@material-ui/core/Box";
 import FormGenerator from "./features/form/FormGenerator";
 import { useSelector, useDispatch } from "react-redux";
-import { formDataChange, getForm } from "./features/form/formSlice";
+import { getForm } from "./features/form/formSlice";
 import { RootState } from "../client/rootReducer";
 
 import React, { useState } from "react";
@@ -14,7 +14,7 @@ import "./App.css";
 function App() {
   const dispatch = useDispatch();
   const [value, setValue] = useState(false);
-  const { formKey, formData, schema, uiSchema } = useSelector((state: RootState) => state.form);
+  const { formData, schema, uiSchema } = useSelector((state: RootState) => state.form);
 
   useEffect(() => {
     dispatch(getForm(value));

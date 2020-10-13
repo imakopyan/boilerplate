@@ -1,16 +1,19 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useDispatch } from "react-redux";
 import Form from "@rjsf/material-ui";
-import { formDataChange, getForm } from "./formSlice";
-import { RootState } from "../../rootReducer";
+import { formDataChange } from "./formSlice";
 
 type FormGeneratorType = {
   schema: object;
   uiSchema: object;
   formData: object;
-}
+};
 
-export default function FormGenerator({schema, uiSchema, formData}: FormGeneratorType) {
+export default function FormGenerator({
+  schema,
+  uiSchema,
+  formData,
+}: FormGeneratorType) {
   const dispatch = useDispatch();
 
   return (
