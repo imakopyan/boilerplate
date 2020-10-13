@@ -14,11 +14,15 @@ import "./App.css";
 function App() {
   const dispatch = useDispatch();
   const [value, setValue] = useState(false);
-  const { formData, schema, uiSchema } = useSelector((state: RootState) => state.form);
+  const { formData, schema, uiSchema } = useSelector(
+    (state: RootState) => state.form
+  );
 
   useEffect(() => {
-    dispatch(getForm(value));
-  }, [value]);
+    if (value) {
+      dispatch(getForm(value));
+    }
+  }, [dispatch, value]);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: any) => {
     setValue(newValue);
@@ -34,7 +38,13 @@ function App() {
       </AppBar>
       <div role="tabpanel">
         <Box px={24} py={3}>
-          {schema && <FormGenerator schema={schema} uiSchema={uiSchema} formData={formData} />}
+          {schema && (
+            <FormGenerator
+              schema={schema}
+              uiSchema={uiSchema}
+              formData={formData}
+            />
+          )}
         </Box>
       </div>
     </div>
