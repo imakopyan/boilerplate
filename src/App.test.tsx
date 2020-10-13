@@ -2,11 +2,15 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./client/App";
 import { Provider } from "react-redux";
-import configureStore from "redux-mock-store";
 import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
+import { initialState } from "./client/features/form/formSlice";
 
 const mockStore = configureMockStore([thunk]);
+
+const initialStateMock = {
+  form: initialState
+};
 
 const mock = {
   form: {
@@ -17,41 +21,34 @@ const mock = {
       properties: {},
     },
     uiSchema: {},
-  },
-  formKey: 111,
-  formData: {},
+    formKey: 111,
+    formData: {},
+  }
 };
-
-
 
 describe("App Form", () => {
   let store: any;
-  beforeEach(() => {
-    store = mockStore(mock);
-  })
+
+  it("renders app", async () => {
+    store = mockStore(initialStateMock);
+    const wrapper = render(
+      <Provider store={store}>
+        <App />
+      </Provider>
+    );
+    expect(await screen.findByText(/Форма 1/i)).toBeInTheDocument();
+    screen.debug();
+  });
 
   it("renders component form", async () => {
+    store = mockStore(mock);
     const wrapper = render(
       <Provider store={store}>
         <App />
       </Provider>
     );
     expect(await screen.findByText(/Тест формы/i)).toBeInTheDocument();
-    screen.debug();
+    // screen.debug();
   });
 });
 
-// describe("App", () => {
-//   let store: any;
-//   beforeEach(() => {
-//     store = mockStore(mock);
-//   })
-//   test("renders App", () => {
-//     const app = render(
-//       <Provider store={store}>
-//         <App />
-//       </Provider>
-//     );
-//     // expect(await screen.findByText(/Описание формы/i)).toBeInTheDocument();
-//   });
-// });

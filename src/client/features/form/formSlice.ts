@@ -11,7 +11,7 @@ interface FormState {
   // submitting: boolean;
 }
 
-const initialState: FormState = {
+export const initialState: FormState = {
   formKey: Date.now(),
   formData: null,
   schema: null,

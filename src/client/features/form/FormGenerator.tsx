@@ -4,14 +4,15 @@ import Form from "@rjsf/material-ui";
 import { formDataChange, getForm } from "./formSlice";
 import { RootState } from "../../rootReducer";
 
-export default function FormGenerator(props: any) {
-  const dispatch = useDispatch();
-  const { formKey, formData, schema, uiSchema } = useSelector((state: RootState) => state.form);
-  useEffect(() => {
-    dispatch(getForm(props.value));
-  }, []);
+type FormGeneratorType = {
+  schema: object;
+  uiSchema: object;
+  formData: object;
+}
 
-  if (!schema) return null 
+export default function FormGenerator({schema, uiSchema, formData}: FormGeneratorType) {
+  const dispatch = useDispatch();
+
   return (
     <Form
       schema={schema}

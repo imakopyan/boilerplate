@@ -1,16 +1,26 @@
+import { useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Box from "@material-ui/core/Box";
 import FormGenerator from "./features/form/FormGenerator";
+import { useSelector, useDispatch } from "react-redux";
+import { formDataChange, getForm } from "./features/form/formSlice";
+import { RootState } from "../client/rootReducer";
 
 import React, { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [value, setValue] = useState("form1");
+  const dispatch = useDispatch();
+  const [value, setValue] = useState(false);
+  const { formKey, formData, schema, uiSchema } = useSelector((state: RootState) => state.form);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: string) => {
+  useEffect(() => {
+    dispatch(getForm(value));
+  }, [value]);
+
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: any) => {
     setValue(newValue);
   };
   return (
@@ -24,7 +34,7 @@ function App() {
       </AppBar>
       <div role="tabpanel">
         <Box px={24} py={3}>
-          <FormGenerator key={value} value={value} />
+          {schema && <FormGenerator schema={schema} uiSchema={uiSchema} formData={formData} />}
         </Box>
       </div>
     </div>
