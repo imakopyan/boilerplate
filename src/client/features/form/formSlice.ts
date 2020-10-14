@@ -42,15 +42,12 @@ const formSlice = createSlice({
 export const { formDataChange, setForm } = formSlice.actions;
 
 export const getForm = (value: any): AppThunk => async (dispatch) => {
-  try {
-    const form = await await fetch(
-      "/forms?" + new URLSearchParams({ form: value })
-    );
-    const newServerResult = await form.json();
-    dispatch(setForm({ value, form: newServerResult }));
-  } catch (err) {
-    console.log(err);
-  }
+  fetch("/forms?" + new URLSearchParams({ form: value }))
+    .then((resp) => resp.json())
+    .then((newServerResult) =>
+      dispatch(setForm({ value, form: newServerResult }))
+    )
+    .catch((err) => console.log(err));
 };
 
 export default formSlice.reducer;
